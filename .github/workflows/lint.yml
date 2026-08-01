@@ -1,0 +1,53 @@
+name: Lint
+
+on:
+  push:
+    paths-ignore:
+      - '.husky/**'
+      - '**/CHANGELOG.md'
+  pull_request:
+    paths-ignore:
+      - '.husky/**'
+      - '**/CHANGELOG.md'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Run linters
+    env:
+      FORCE_COLOR: '1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/prepare
+      - run: npm run build
+      - parallel:
+          - name: ESLint
+            run: npm run lint:eslint
+          - name: markdownlint
+            run: npm run lint:markdown
+          - name: cspell
+            run: npm run lint:spelling
+          - name: Type check
+            run: npm run lint:types
+          - name: Format check
+            run: npm run lint:prettier
+          - name: Knip
+            run: npm run lint:knip
+          - name: Engine check
+            run: npm run lint:engines
+          - name: Run zizmor
+            uses: zizmorcore/zizmor-action@6fc4b006235f201fdab3722e17240ab420d580e5 # v0.6.1
+            with:
+              persona: pedantic
+              advanced-security: 'false'
+              annotations: 'true'
+              version: '1.25.2'

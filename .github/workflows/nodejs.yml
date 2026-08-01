@@ -1,0 +1,32 @@
+name: Node CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    env:
+      FORCE_COLOR: '1'
+    name: Build & Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - node-version: '22'
+          - node-version: '24'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/prepare
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Test
+        run: npm test
