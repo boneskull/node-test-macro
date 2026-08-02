@@ -1,17 +1,23 @@
 {
-  "name": "packagename",
+  "name": "node-test-macro",
   "version": "0.0.0",
   "type": "module",
-  "description": "Shankle short loin porchetta strip steak tongue drumstick shoulder shank turkey pork loin picanha flank.",
+  "description": "A small utility to create parameterized tests for node:test using macros",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/boneskull/packagename.git"
+    "url": "git+https://github.com/boneskull/node-test-macro.git"
   },
   "author": "Christopher Hiller <boneskull@boneskull.com> (https://boneskull.com/)",
   "license": "BlueOak-1.0.0",
   "private": true,
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "^12.0.0"
+    }
   },
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.cts",
@@ -29,7 +35,17 @@
     "dist",
     "src"
   ],
-  "keywords": [],
+  "keywords": [
+    "node:test",
+    "test",
+    "macro",
+    "parameterized",
+    "parameter",
+    "test",
+    "testing",
+    "testing-tools",
+    "macros"
+  ],
   "scripts": {
     "build": "zshy",
     "commitlint": "commitlint",
@@ -49,13 +65,14 @@
     "lint:types": "tsc --noEmit",
     "prepare": "husky; npm run build",
     "test": "npm run test:runtime",
-    "test:runtime": "node --import tsx --test --test-reporter=spec \"test/**/*.test.ts\"",
-    "test:watch": "node --import tsx --test --test-reporter=spec --watch \"test/**/*.test.ts\""
+    "test:runtime": "nub --test --test-reporter=spec \"test/**/*.test.ts\"",
+    "test:watch": "nub --test --test-reporter=spec --watch \"test/**/*.test.ts\""
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
     "@commitlint/config-conventional": "21.2.0",
     "@eslint/js": "10.0.1",
+    "@nubjs/nub": "0.6.0",
     "@stylistic/eslint-plugin": "5.10.0",
     "@types/node": "24.13.3",
     "bupkis": "1.0.0",
@@ -74,7 +91,6 @@
     "prettier": "3.9.6",
     "prettier-plugin-jsdoc": "1.8.1",
     "prettier-plugin-pkg": "0.22.1",
-    "tsx": "4.23.1",
     "typescript": "6.0.3",
     "typescript-eslint": "8.65.0",
     "zshy": "0.7.3"
@@ -84,13 +100,6 @@
     "fsevents@2.3.3": true
   },
   "knip": {
-    "ignoreDependencies": [
-      "markdownlint-cli2-formatter-pretty"
-    ],
-    "ignore": [
-      "**/*.d.ts",
-      ".worktrees/**/*"
-    ],
     "tags": [
       "-knipignore"
     ]
