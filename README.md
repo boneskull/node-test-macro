@@ -1,63 +1,76 @@
-# boneskull-template
+# node-test-macro
 
-> JUST THE WAY I LIKE IT
-
-This is my template for new Node.js projects. It is the best one.
+> A small utility to create parameterized tests for `node:test` using "macros."
 
 ## Install
 
+> Requires Node.js ^22.22.2, ^24.15.0, or >=26.0.0
+
 ```shell
-npm install PACKAGENAME
+npm install node-test-macro -D
 ```
+
+`node-test-macro` ships both CJS and ESM builds.
 
 ## Usage
 
-Use as a GitHub template.
+`node-test-macro` exports `createMacro()`. When invoked, `createMacro()` returns a factory function. This factory function returns a `TestOptions` object which is passed directly to `node:test`'s `test()`/`it()`.
 
-## Tooling
+Each macro can accept a user-defined "options" bag which is passed into the `MacroTestFn`. This function is essentially the same as the usual `TestFn`, except it additionally receives the user-defined options as the second parameter.
 
-This template includes:
+### Basic
 
-- **ESLint v9+** with flat config and TypeScript support
-- **Prettier** with automatic formatting
-- **TypeScript** with strict checking
-- **node:test** - Built-in Node.js test runner
-- **bupkis** - Modern assertion library
-- **Husky** - Git hooks for quality checks
-- **lint-staged** - Run linters on staged files
-- **commitlint** - Conventional commit enforcement
-- **cspell** - Spell checking
-- **markdownlint** - Markdown linting
-- **knip** - Find unused dependencies
-- **Renovate** - Automated dependency updates
-- **zshy** - Dual-module TS builds
+In this form, the macro is implemented as a function which receives the test context and user-defined `options` object.
 
-## Development
+```ts
+import { it, type TestContext } from 'node:test';
+import { createMacro } from 'node-test-macro';
 
-```bash
-# Install dependencies
-npm install
+const stringCompare = createMacro(
+  (
+    t: TestContext,
+    { actual, expected }: { actual: string; expected: string },
+  ) => {
+    t.assert.strictEqual(actual, expected);
+  },
+);
 
-# Build
-npm run build
-
-# Run tests
-npm test
-
-# Run linters
-npm run lint
-
-# Auto-fix issues
-npm run fix
-
-# Watch mode for tests
-npm run test:watch
+// the second parameter to stringCompare is a TestOptions object
+it(
+  'string comparison',
+  stringCompare({ actual: 'foo', expected: 'foo' }, { plan: 1 }),
+);
 ```
 
-## Notes
+### Advanced
 
-Bacon ribeye ham hock kielbasa landjaeger drumstick pork chop andouille.
+In this form, `createMacro()` accepts a `MacroConfig` object containing at minimum an `exec` function which is the same as the first parameter in the "basic" example.
+
+A `title` function (or `string`) can be provided to derive the test name from the `options` object.
+
+Additionally, a `testOptions` object can be provided to set the _default_ set of test options, which can optionally be overridden when the macro is invoked.
+
+```ts
+import { it, type TestContext } from 'node:test';
+import { createMacro } from 'node-test-macro';
+
+const stringCompare = createMacro({
+  exec: (
+    t: TestContext,
+    { actual, expected }: { actual: string; expected: string },
+  ) => {
+    t.assert.strictEqual(actual, expected);
+  },
+  title: ({ actual, expected }) => `${actual} === ${expected}`,
+  testOptions: { timeout: 1_000 },
+});
+
+it(stringCompare({ actual: 'foo', expected: 'foo' }, { plan: 1 }));
+```
+
+> If for some as-yet-unknown reason you _don't_ want to accept user-defined
+> options, you can use `createMacro<void>()`.
 
 ## License
 
-Copyright © 2019 Christopher Hiller. Licensed BlueOak-1.0.0
+Copyright © 2026 Christopher Hiller. Licensed BlueOak-1.0.0

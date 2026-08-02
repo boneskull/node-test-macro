@@ -19,7 +19,10 @@
     "stripInternal": true,
     "target": "esnext",
     "types": ["node"],
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
+    "noEmitOnError": true,
+    "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true
   },
   "include": [
     "src/**/*.ts",
