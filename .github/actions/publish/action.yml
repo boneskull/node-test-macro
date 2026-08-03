@@ -4,8 +4,7 @@ description: Publish to npm
 inputs:
   token:
     description: 'npm token'
-    required: false
-    default: ''
+    required: true
 
 runs:
   steps:
