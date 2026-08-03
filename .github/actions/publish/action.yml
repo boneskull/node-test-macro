@@ -21,9 +21,14 @@ runs:
         node-version: 24.18.1
         registry-url: https://registry.npmjs.org
     - uses: ./.github/actions/prepare
-    - name: Publish to npm
+    - name: Publish to npm (with token)
+      if: ${{ inputs.token != '' }}
       env:
         NODE_AUTH_TOKEN: ${{ inputs.token }}
+      run: npm publish --provenance --access public --registry https://registry.npmjs.org
+      shell: bash
+    - name: Publish to npm (no token)
+      if: ${{ inputs.token == '' }}
       run: npm publish --provenance --access public --registry https://registry.npmjs.org
       shell: bash
   using: composite
