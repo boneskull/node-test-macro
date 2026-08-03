@@ -29,5 +29,3 @@ jobs:
           persist-credentials: false
       - if: ${{ steps.release.outputs.release_created }}
         uses: ./.github/actions/publish
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
