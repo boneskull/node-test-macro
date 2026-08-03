@@ -29,4 +29,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Test
+        env:
+          NODE_OPTIONS: '--test-reporter=node-test-github-reporter --test-reporter=spec'
         run: npm test
