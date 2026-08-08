@@ -73,7 +73,7 @@
     "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
     "@types/node": "24.13.3",
-    "bupkis": "1.0.0",
+    "bupkis": "1.1.0",
     "cspell": "10.0.1",
     "eslint": "10.8.0",
     "eslint-plugin-jsonc": "3.3.0",
