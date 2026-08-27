@@ -10,6 +10,7 @@
     'helpers:pinGitHubActionDigests',
     ':configMigration',
     ':automergeDigest',
+    ':automergeMinor',
     ':automergePatch',
   ],
   labels: ['dependencies'],
@@ -23,22 +24,4 @@
     enabled: true,
     automerge: true,
   },
-  packageRules: [
-    {
-      matchManagers: ['github-actions'],
-      matchPackageNames: [
-        'zizmorcore/zizmor-action',
-        'ghcr.io/zizmorcore/zizmor',
-      ],
-      groupName: 'zizmor',
-    },
-    {
-      // this causes updates to the zizmor docker tag (version) to wait for 3
-      // days. updating the docker tag _before_ the action is updated makes the
-      // action fail because it doesn't yet know about the tag.
-      matchManagers: ['github-actions'],
-      matchPackageNames: ['ghcr.io/zizmorcore/zizmor'],
-      minimumReleaseAge: '3 days',
-    },
-  ],
 }
