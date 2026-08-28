@@ -74,7 +74,7 @@
     "@stylistic/eslint-plugin": "5.10.0",
     "@types/node": "24.13.3",
     "bupkis": "1.1.0",
-    "cspell": "10.0.1",
+    "cspell": "10.1.1",
     "eslint": "10.8.1",
     "eslint-plugin-jsonc": "3.3.0",
     "eslint-plugin-perfectionist": "5.10.1",
