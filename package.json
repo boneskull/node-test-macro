@@ -75,7 +75,7 @@
     "@types/node": "24.13.3",
     "bupkis": "1.1.0",
     "cspell": "10.2.2",
-    "eslint": "10.9.1",
+    "eslint": "10.10.0",
     "eslint-plugin-jsonc": "3.4.2",
     "eslint-plugin-perfectionist": "5.11.0",
     "globals": "17.12.0",
