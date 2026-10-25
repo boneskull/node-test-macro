@@ -92,7 +92,7 @@
     "prettier-plugin-pkg": "0.22.1",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.0",
-    "zshy": "0.8.0"
+    "zshy": "0.8.1"
   },
   "knip": {
     "ignoreDependencies": [
