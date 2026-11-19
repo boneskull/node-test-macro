@@ -77,7 +77,7 @@
     "cspell": "10.5.1",
     "eslint": "10.15.0",
     "eslint-plugin-jsonc": "3.4.2",
-    "eslint-plugin-perfectionist": "5.13.0",
+    "eslint-plugin-perfectionist": "5.14.0",
     "globals": "17.14.0",
     "husky": "9.1.7",
     "installed-check": "10.0.1",
