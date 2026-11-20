@@ -71,7 +71,7 @@
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@eslint/js": "10.0.1",
-    "@stylistic/eslint-plugin": "5.10.0",
+    "@stylistic/eslint-plugin": "6.0.1",
     "@types/node": "24.19.2",
     "bupkis": "1.1.0",
     "cspell": "10.5.1",
